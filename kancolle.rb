@@ -6,9 +6,11 @@ set :environment, :production
 set :bind, '0.0.0.0'
 set :server, :thin
 
+enable :sessions
+set :session_secret, 'helloworld'
 
 get '/' do
-  haml :login
+  haml :login, :locals => {:game_url => session[:game_url]}
 end
 
 post '/' do
@@ -38,6 +40,12 @@ post '/' do
   RestClient.post('https://www.dmm.com/my/-/login/auth/', auth, cookies: cookies, &proc);
   resp2 = RestClient.get('http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/', cookies: cookies, &proc);
   game_url = resp2.chars.select{|i| i.valid_encoding?}.join.match(/^.*URL.*"(.*osapi.*)".*$/)[1]
+  session[:game_url] = game_url
   redirect game_url
   
+end
+
+get '/logout' do
+  session[:game_url] = nil
+  redirect '/'
 end

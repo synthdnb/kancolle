@@ -6,5 +6,9 @@
       %input{type: 'text',name: 'id'}
       %input{type: 'password', name: 'password'}
       %input{type: 'submit'}
+    - if game_url
+      %a{href: game_url}login
+      %br
+      %a{href: '/logout'}clear session
 
 
