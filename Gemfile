@@ -1,4 +1,4 @@
 gem 'sinatra'
-gem 'thin'
+gem 'unicorn'
 gem 'haml'
 gem 'rest-client'

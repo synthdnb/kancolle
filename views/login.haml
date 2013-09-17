@@ -6,8 +6,8 @@
       %input{type: 'text',name: 'id'}
       %input{type: 'password', name: 'password'}
       %input{type: 'submit'}
-    - if game_url
-      %a{href: game_url}login
+    - if has_cookie
+      %a{href: '/stored'}login with cookie
       %br
       %a{href: '/logout'}clear session
 
